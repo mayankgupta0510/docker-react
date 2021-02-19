@@ -1,0 +1,9 @@
+FROM alpine
+
+WORKDIR "/usr/frontend"
+
+RUN apk add --update npm
+COPY package.json .
+RUN npm install
+
+CMD ["npm","run", "start"]
