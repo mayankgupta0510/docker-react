@@ -1,10 +1,11 @@
-FROM alpine as builder
+FROM alpine
 WORKDIR /app
 RUN apk add --update npm
-COPY package.json .
+COPY package*.json ./
 RUN npm install 
-COPY . .
+COPY ./ ./
 RUN npm run build
 
 FROM nginx
-COPY --from=builder /app/build /usr/share/nginx/html
+EXPOSE 80
+COPY --from=0 /app/build /usr/share/nginx/html
